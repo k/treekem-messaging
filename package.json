@@ -52,7 +52,15 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "sha.js": "^2.4.11"
+    "@types/crypto-js": "^3.1.43",
+    "@types/ramda": "^0.26.8",
+    "@types/uuid": "^3.4.4",
+    "crypto-js": "^3.1.9-1",
+    "eth-treekem": "^1.0.0",
+    "eth-x3dh": "^1.0.0",
+    "ramda": "^0.26.1",
+    "sha.js": "^2.4.11",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "ava": "1.0.0-beta.7",
