@@ -1,23 +1,23 @@
 import { createHash, randomBytes } from 'crypto';
 import { AES, enc } from 'crypto-js';
 import {
+  cbcEncrypt,
   createGroup,
   decrypt,
+  decryptECKEM as cbcDecrypt,
   encrypt,
+  equal,
+  EthKeyPair,
   fromFrontier,
   hashUp,
+  iota,
   merge,
   TreeKEM,
   TreeKEMCiphertext,
-  equal
+  TreeMath,
 } from 'eth-treekem';
 import {
-  cbcEncrypt,
-  decrypt as cbcDecrypt,
-  EthKeyPair
 } from 'eth-treekem/build/main/lib/eth-crypto';
-import iota from 'eth-treekem/build/main/lib/iota';
-import tm from 'eth-treekem/build/main/lib/tree-math';
 import { X3DH_Receiving, X3DH_Sending } from 'eth-x3dh';
 import { range } from 'ramda';
 import { v4 } from 'uuid';
@@ -138,7 +138,7 @@ async function encryptTreeKEMMessage(
     merge(treekem, ct.nodes),
     await hashUp(treekem.index, treekem.size, s)
   );
-  const root = tm.root(treekem.size);
+  const root = TreeMath.root(treekem.size);
   const payload = AES.encrypt(
     JSON.stringify({
       text,
@@ -186,7 +186,7 @@ async function addMember(
     JSON.stringify(await decrypt(treekem, newMember.index, ct.ciphertexts))
   );
 
-  const root = tm.root(newMember.size);
+  const root = TreeMath.root(newMember.size);
   const payload = AES.encrypt(
     JSON.stringify({
       text: 'Member added',
